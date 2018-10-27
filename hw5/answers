@@ -1,0 +1,83 @@
+CSE 331 Homework 5.  Answers to Written questions.
+Edit this file to supply your answers.
+
+Name: Jon Luntzel
+
+Problem 1. (Written exercises)
+
+(a) IntQueue1
+Abstraction Function:
+AF(this) = a first-in-first-out queue with entries that are integers added to the queue.
+entries = [n1, n2, ..., n_k] where k - 1 is the queue size. If queue is empty, entries = [].
+
+Representation Invariant:
+for each added integer entry in entries, entry != null. entries != null, and entries.size >= 0.
+
+	IntQueue2
+Abstraction Function:
+AF(this) = a circular ring buffer with entries that are integers added to the queue.
+entries = [n1, n2, ..., n_k] where front is the front index  of the queue and k - 1 is the queue
+size. If queue is empty, entries = [].
+
+Representation Invariant:
+for each added integer entry in entries, entry != null. entries != null, entries.size >= 0,
+and front >= 0.
+
+(b) grouped if they have same values and same size
+a, d, g 
+b, h 
+e
+f
+
+(c) 1. In java, primitive data types such as ints are immutable. 
+	   If the client has no references, there is no representation exposure.
+	2. In java, reference data types such as arrays are mutable.
+       If the client can access the array, there is representation exposure.
+	3. Private methods cannot be used by clients. 
+	   There is no representation exposure.
+	4. String is immutable in java, so its instances cannot be modified.
+	   There is no representation exposure.
+	5. In Java, the Iterator interface has a remove option available to the client, 
+	   so there is representation exposure.
+	6. List is mutable, so if is not copied in and copied out, or hidden through
+	   some other method, there could be representation exposure.
+
+Problem 2.  (Graph interface/operations)
+In my graph, I added an operation to add nodes. I included this operation because I think that
+graphs should be able to evolve as the user's needs and information changes. If I could only
+implement a static graph I do not think it would be as useful. I also implemented an operation
+to add edges. I included this operation for the same reason, but now the user can add connections
+between values. I think I will later implement a remove edges and remove nodes for the user.
+I also added a method to get a set of node values and a list of children because the test driver
+requires it.
+
+I made a node class and an edge class to make up the graph because I think that being able to
+modularly approach connections and points is a good design. I can get the node's value, hashcode,
+and check if they are equal to one another. In edges, I can get the label, start and end value,
+and check if they are equal to one another. These methods are implemented because I think
+retrieving fields and comparing objects are fundamental.
+
+Problem 3.  (Testing strategy)
+add one node, two nodes, two nodes 1 edge, two nodes 2 edge.
+My testing strategy was to build the tests for the node class first because it is simple.
+I wrote tests for each method I would implement, and this led me to know what object types I wanted
+to use. I made sure to add a hash code test since it seemed easy and important.
+I then wrote the edge tests, which used nodes in the process of developing. That is where my design
+took the labeled approach. Finally, the graph seemed to complicated to approach so I wrote the node
+and edge classes then debugged using JUnit. After having a little bit of code to work with, I wrote
+the graph tests.
+
+Problem 4.  (Representation)
+I used an adjacency list for the graph because it has the convenience of accessing nodes and edges,
+but is not too demanding on memory. If we use a collection of edges, we have to access the 
+edges to get to the nodes, and if we use an adjacency matrix, we have to include positions
+for every pair of nodes even if there are not edges between them.
+
+An advantage of the adjacency matrix is that it is the most comprehensive structure for
+representing a graph. It lets us see all the possible positions where connections can occur
+between nodes, and all the nodes as well.
+
+An advantage of the collection of edges is that it is the most minimal representational structure.
+It does not separate out the nodes and edges, because it is somewhat redundant since edges already
+contain the nodes and these fields should be able to be accessed.
+
