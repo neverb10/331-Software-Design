@@ -1,0 +1,45 @@
+CSE 331 Homework 9.  Answers to Written questions.
+Edit this file to supply your answers.
+
+Name: Jon Luntzel
+
+1) List any changes made to the hw8 model implementation for hw9 or 
+"none" if no changes were made.  If there are any changes, include
+a short explanation of each change and why it was needed (see the
+assignment for details of what to include here).
+
+I made many changes to the hw7 and hw8 model. My Dijkstras algorithm was not working correctly,
+and I realized it was because I did not check the cumulative sum of paths to decide what
+to set as the minimum path. To fix this I stored the total distance in the 0th index with the
+reflexive node from start to start. I also just stored the distance between two nodes instead
+of the sum up to that point.
+I changed the hw7 test driver to reflect the new algorithm and behave properly.
+
+In hw8, I changed my formula for finding cardinal directions. I am still having issues with
+printing West, as I print South-East instead. Other than that they are working correctly and I
+chose not to continue fixing it because it had to focus on the utility of hw9.
+
+I modified my samplegraph test file because I was printing the wrong expected values.
+
+I made many changes to the hw8 CampusModel. For starters, I added a reverse map of building names
+so I could access the abbreviated building name from the full name to calculate the distance.
+I also changed my distances method to reflect the new Dijkstra's method - I stopped manually 
+calculating the distance. I changed the for loop bounds of my pairList method because I was printing
+points that should have been skipped (i.e, the starting point). It starts at index 2 because that is
+where the starting node is the first visited coordinate. 
+
+I changed the hw8 CampusVC. When printing the output, I chose to stop iterating by 2 and iterated by 1.
+This was to print every distance value instead of skipping values. I then had to use the formula for
+reaching my coordinate values, x being i * 2 and y being i * 2 + 1. This was so it accessed on loop 0
+[0, 1] and on loop 1 [2, 3] and so on. 
+
+2) List any additional (optional) extra features included in your
+hw9 GUI or "none" if no additional features.
+
+At the bottom of the screen, the distance is printed.
+
+In the main file, you can modify the 'factor' which changes the GUI sizes but maintains 
+the 1024 x 768 resolution. It is still in primitive stages because the start and end location are far
+too large if the user wants a very low factor. Also, if the factor is too large, a lot of the map is
+cut off and removes its utility.
+
