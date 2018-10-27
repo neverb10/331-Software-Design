@@ -1,0 +1,93 @@
+CSE 331 Homework 4.  Answers to Written questions.
+Edit this file to supply your answers.
+
+Name:  Jon Luntzel
+
+Problem 0.
+(a) r = p * q:
+		for each term t_q in q:
+			for each term t_p in p:
+			 	term t
+				tCoef = t_q.getCoeff() * t_p.getCoeff()
+				tExp = t_p.getExpt() + t_q.getExpt()
+				insert term t with coefficient tCoef and exponent tExp to r as new term
+
+(b) r = p / q: (sorted by power, t_pi where i is index)
+		while (t_q0.getExp() <= t_p0.getExp()) {
+			term t
+			tExp = t_p0.getExpt() / t_q0.getExpt()
+			tCoef = t_p0.getCoeff() - t_q0.getCoeff()
+			insert term t with coefficient tCoef and exponent tExp to r as new term
+			t *= q
+			p -= t
+		}
+		add to r: p / q
+
+(c) r = x^2 - x + 2, p = (x^3 + x - 1), q = (x + 1)
+	while (t_q0.getExp() <= t_p0.getExp()) {
+		[while q's first term's exponent is less than or equal to p's]
+		loop 1:
+		tExp = 2
+		tCoef = 1
+		r = x^2
+		p = -x^2 + x - 1
+		loop 2:
+		tExp = 1
+		tCoef =-1
+		r = x^2 - x
+		p = 2x - 1
+		loop 3:
+		tExp = 0
+		tCoef = 2
+		r = x^2 - x + 2
+		p = -3
+		(loop breaks)
+		r = x^2 - x + 2 + -3 / (x + 1) = p / q
+
+
+Problem 1.
+
+(a) The constructor, checkRep, toString(), and hashCode() method are effected. The constructor does
+ not need to call the gcd method because reduced form is no longer part of the representation
+invariant. checkRep no longer needs to have any warning about reduced form. toString() must call
+gcd since it still requires printing in reduced form. hashCode must call gcd to prevent the same 
+number from giving different codes. In terms of complexity, the constructor now runs in O(1), 
+and the toString() runs in O(log n). hashCode() runs in O(log n).
+
+(b) The add, sub, mul, and div specifications need to state an @modifies line to mark that the 
+local fields are changing. Therefore, the lack of an @modifies line is not met by the new 
+implementation of these methods since the fields are being manipulated.
+
+(c) It is sufficient to call checkRep at the end of the constructors because there is no need
+to check if the old instances that are about to be replaced are violating the representation 
+invariant. Fields being final and private prevent changes to instances of RatNum. Final prevents 
+changing the field, and if it references a mutable object, declaring it private prevents users 
+from changing it.
+
+
+Problem 2.
+
+(a) I included checkRep() at the end of the constructor because if we assume the fields cannot
+be modified since they final, the constructor is the only location that the invariant could
+not be upheld. Therefore each time a term is constructed I check the representation invariant.
+There are other methods in the code that could cause it to break, but ultimately they 
+use the ratTerm constructor and the problem will be caught.
+
+
+(b) The line that sets expt to equal 0 in the constructor if the coefficient is 0 is no longer
+needed. hashCode() would need to give the same code for 0's with different exponents, so the 
+formula would change. Likewise the comparison in equals() should be true when the coefficient 
+is 0 but exponents are different.checkRep() would not check if the exponent is 0 because it 
+is no longer required. Complexity does not change in any case.
+
+(c) The constructor should check if the ratNum is NaN, and set the coefficient
+equal to NaN and the exponent equal to 0. In the checkRep(), we should assert if the coefficient
+is not NaN, or the exponent is 0.
+
+Problem 5.
+x^4+x^2+1
+x^2+1
+-x+1
+32x^8+16x^4+8x^2
+6x^9+10x
+
